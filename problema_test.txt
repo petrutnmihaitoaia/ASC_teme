@@ -1,0 +1,61 @@
+.data
+v .word 1 2 3 4
+lungime: .word 4
+number: .word 170    #1010 1010 cu care vom face and
+str1: .asciiz "e"
+str2: .asciiz "d"
+.text
+
+main:
+lw $t0, n
+li $t1, 0 # t1 va functiona ca un i cu care vom parcurge vectorul
+#punem number in registrul $t3
+lw $t3, number
+
+for:
+bgt $t0, $t1, continue
+#punem v[i] in stiva
+addi $sp, $sp, -4
+#t2 = v[i]
+li $t2, v($t1)
+#punem t2 care este v[i] in stiva
+sw $t2, 0($sp)
+#sarim la functie si vom avea in $v0 nr modificat
+
+
+jal function
+#daca $v0 si $t2 care este v[i] sunt egale sare la printe care afiseaza e,  daca nu sunt egale continua si afiseaza d
+contiune2:
+beq $v0, $t2, printe
+
+lui $a0, $str2
+addi $v0, $0, 4
+syscall
+j continue1
+
+printe:
+lui $a0, $str1
+addi $v0, $0, 4
+syscall
+
+continue1:
+#il crestem pe i
+addi $t1, $t1, 1
+jal for
+continue:
+
+j end
+
+#functia care pune in v0 nr cu bitii 0 si 1 , 2 si 3, 4 si 5 , 6 si 7 schimbati intre ei
+function:
+#luam din stiva si retinem intr-un registru
+lw $t4, 0($sp)
+#facem AND intre $t4 care este valoarea noastra si $t3 in care am retinut 1010 1010
+and $v0, $t3, $t4
+jal contiune2
+
+
+#sfarsit de program
+end:
+li $v0, 10
+syscall

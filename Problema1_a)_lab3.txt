@@ -1,0 +1,18 @@
+.data
+x: .word
+
+.text
+
+lw $t0, x
+bgt $t0, 0, maimaredecatzero
+li $v0, -1
+j end
+
+maimaredecatzero:
+blt $t0, 0, egalzero
+li $v0, -1
+j end
+
+egalzero:
+li $vo, 0
+

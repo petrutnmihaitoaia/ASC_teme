@@ -1,0 +1,14 @@
+subu $sp,4 (fac loc in stiva pt o variabila)
+sw $t0, 0($sp)    (pune $t0 in stiva)
+lw $t0, 0($sp)    (copiaza din stiva in $to)
+addu $sp, 4       (elibereaza stiva)
+
+http://logos.cs.uic.edu/366/notes/mips%20quick%20tutorial.htm
+
+b	target		#  unconditional branch to program label target
+		beq	$t0,$t1,target	#  branch to target if  $t0 = $t1
+		blt	$t0,$t1,target	#  branch to target if  $t0 < $t1
+		ble	$t0,$t1,target	#  branch to target if  $t0 <= $t1
+		bgt	$t0,$t1,target	#  branch to target if  $t0 > $t1
+		bge	$t0,$t1,target	#  branch to target if  $t0 >= $t1
+		bne	$t0,$t1,target	#  branch to target if  $t0 <> $t1
